@@ -1,6 +1,26 @@
 Producer: sending application
 Consumer: receiving application
 Queue: the object in rabbitmq that stores messages before they are sent
-	to consumers. The message buffer. It is limited only by the rabbitmq
-	server hosts memeory and disk space.
+    to consumers. The message buffer. It is limited only by the rabbitmq
+    server hosts memeory and disk space.
 routing_key: A string that specifies a specific queue.
+connection: A connection to a rabbitmq server
+channel: a virtual connection to a rabbitmq server
+
+
+Only producers need to specify an exchange, consumers can hook directly into queues.
+
+acknowledgement: a message sent by the consumer to the broker to acknowledge that work was done
+    successfully.
+
+View unacknowledged messags: sudo rabbitmqctl list_queues name messages_ready messages_unacknowledged
+
+Message durability:
+    marking queues and messages durable so rabbitmq will remember them if it restarts.
+    Both consumers and producers need to mark a queue as durable.
+    To mark a message as durable, set the properties.delivery_mode to 2
+
+Fair dispatch
+    setting the prefetch_count to 1 will guarentee that rabbitmq doesn't send more
+    than one message to a consumer at a time
+
